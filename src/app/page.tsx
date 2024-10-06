@@ -3,16 +3,25 @@ import CurrentSinger from "@/components/CurrentSinger";
 import Singer from "@/components/Singer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
   const [newsinger, setNewSinger] = useState<string>("");
-  const [queue, setQueue] = useState<{ id: string; name: string }[]>(() => {
+  const [queue, setQueue] = useState<{ id: string; name: string }[]>([
+    {
+      id: "0",
+      name: "vazia",
+    },
+  ]);
+
+  useEffect(() => {
     const storedData = localStorage.getItem("singers");
-    return storedData ? JSON.parse(storedData) : [];
-  });
+    if (storedData) {
+      setQueue(JSON.parse(storedData));
+    }
+  }, []);
 
   const handleAddSinger = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewSinger(e.target.value);
@@ -21,7 +30,7 @@ export default function Home() {
   const handleAddToQueue = () => {
     if (newsinger.trim() !== "") {
       const newItem = { id: uuidv4(), name: newsinger };
-      const alteredQueue = [...queue, newItem];
+      const alteredQueue = [...queue!, newItem];
       localStorage.setItem("queue", JSON.stringify(queue));
       setQueue(alteredQueue);
       localStorage.setItem("singers", JSON.stringify(alteredQueue));
