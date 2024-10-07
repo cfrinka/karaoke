@@ -75,11 +75,8 @@ body {
   body {
     @apply bg-background text-foreground;
   }
-  .container {
-    @apply px-28;
-  }
   html,
   body {
-    @apply h-full w-full;
+    @apply h-full w-full bg-slate-950 flex items-center justify-center;
   }
 }

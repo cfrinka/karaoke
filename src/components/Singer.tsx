@@ -8,14 +8,14 @@ type Props = {
 };
 const Singer = ({ singer, removeSinger }: Props) => {
   return (
-    <div className="w-full flex items-center justify- border rounded-lg p-3">
+    <div className="w-full flex items-center justify-center rounded-lg p-3 bg-slate-400">
       <div className="w-[80%] text-2xl">{singer.name}</div>
       <div className="w-[20%] flex items-center justify-end gap-4">
         <button
-          className="bg-red-500 hover:bg-red-600 text-white  rounded-md p-1"
+          className="bg-red-500 hover:bg-red-600 text-white  rounded-md p-2"
           onClick={() => removeSinger(singer.id)}
         >
-          <X className="text-red-300" />
+          <X className="text-white" />
         </button>
       </div>
     </div>
