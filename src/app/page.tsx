@@ -9,14 +9,16 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
-  const [newsinger, setNewSinger] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [queue, setQueue] = useState<{ id: string; name: string }[]>([
+  const emptyQueue = [
     {
       id: "0",
       name: "Fila Vazia",
     },
-  ]);
+  ];
+  const [newsinger, setNewSinger] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [queue, setQueue] =
+    useState<{ id: string; name: string }[]>(emptyQueue);
 
   useEffect(() => {
     const storedData = localStorage.getItem("singers");
@@ -31,10 +33,12 @@ export default function Home() {
 
   const handleAddToQueue = () => {
     if (newsinger.trim() !== "") {
+      if (queue[0].id === "0") {
+        queue.splice(0, 1);
+      }
       const duplicateName = queue.some((item) => item.name === newsinger);
       if (duplicateName) {
         setError("Nome já existe na lista");
-        console.log(error);
         return;
       }
       const newItem = { id: uuidv4(), name: newsinger };
@@ -43,7 +47,6 @@ export default function Home() {
       setQueue(alteredQueue);
       localStorage.setItem("singers", JSON.stringify(alteredQueue));
       setNewSinger("");
-      console.log(error);
     }
   };
 
@@ -60,9 +63,14 @@ export default function Home() {
   };
 
   const removeSinger = (id: string) => {
-    const updatedData = queue.filter((singer) => singer.id !== id);
-    setQueue(updatedData);
-    localStorage.setItem("singers", JSON.stringify(updatedData));
+    if (queue.length > 1) {
+      const updatedData = queue.filter((singer) => singer.id !== id);
+      setQueue(updatedData);
+      localStorage.setItem("singers", JSON.stringify(updatedData));
+    } else {
+      setQueue(emptyQueue);
+      localStorage.setItem("singers", JSON.stringify(emptyQueue));
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -77,8 +85,8 @@ export default function Home() {
 
   return (
     <>
-      {error != "" ? <Toast close={closeToast} /> : null}
-      <div className="w-full min-h-[50%] container flex flex-col items-center justify-center gap-8 bg-slate-900 mx-auto p-6 rounded-xl">
+      {error != "" ? <Toast close={closeToast} error={error} /> : null}
+      <div className="w-full container flex flex-col items-center justify-center gap-8 bg-gray-400 mx-auto p-6 rounded-xl">
         <CurrentSinger
           singer={queue[0]}
           moveFirstToLast={moveFirstToLast}
@@ -97,7 +105,7 @@ export default function Home() {
         </div>
         <div className="flex gap-4 mt-7 w-full">
           <Input
-            className="p-8 bg-slate-400 border-0 text-2xl placeholder:text-2xl"
+            className="p-8 bg-slate-200 border-0 text-2xl placeholder:text-2xl"
             value={newsinger}
             onKeyDown={handleKeyDown}
             onChange={(e) => handleAddSinger(e)}

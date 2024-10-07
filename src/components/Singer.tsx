@@ -8,7 +8,7 @@ type Props = {
 };
 const Singer = ({ singer, removeSinger }: Props) => {
   return (
-    <div className="w-full flex items-center justify-center rounded-lg p-3 bg-slate-400">
+    <div className="w-full flex items-center justify-center rounded-lg p-3 bg-slate-600 text-white uppercase hover:bg-slate-200 hover:text-slate-600">
       <div className="w-[80%] text-2xl">{singer.name}</div>
       <div className="w-[20%] flex items-center justify-end gap-4">
         <button
