@@ -68,6 +68,21 @@ body {
   }
 }
 
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+/* IE10+ */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+}
+
 @layer base {
   * {
     @apply border-border;

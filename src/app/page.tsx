@@ -86,7 +86,7 @@ export default function Home() {
   return (
     <>
       {error != "" ? <Toast close={closeToast} error={error} /> : null}
-      <div className="w-full container flex flex-col items-center justify-center gap-8 bg-gray-400 mx-auto p-6 rounded-xl">
+      <div className="w-full container flex flex-col items-center justify-between gap-8 bg-gray-400 mx-auto p-6 rounded-xl min-h-[40rem] max-h-[40rem] hide-scrollbar">
         <CurrentSinger
           singer={queue[0]}
           moveFirstToLast={moveFirstToLast}
