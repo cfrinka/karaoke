@@ -16,9 +16,7 @@ const CurrentSinger = ({ singer, moveFirstToLast, removeSinger }: Props) => {
     <div className="rounded-xl w-full p-4 flex">
       <p className="text-center text-3xl w-[80%] text-white">
         Agora é a vez de:{" "}
-        <span className="text-bold text-red-700">
-          {singer ? singer.name : "Fila Vazia"}
-        </span>
+        <span className="text-bold text-red-700">{singer.name}</span>
       </p>
       <div className="w-[20%] flex items-center justify-end gap-4">
         <button

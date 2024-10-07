@@ -14,7 +14,7 @@ export default function Home() {
   const [queue, setQueue] = useState<{ id: string; name: string }[]>([
     {
       id: "0",
-      name: "vazia",
+      name: "Fila Vazia",
     },
   ]);
 
